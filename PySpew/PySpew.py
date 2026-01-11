@@ -1,7 +1,7 @@
 import sys
 import os
 import requests
-import platform
+from platform import system
 system = platform.system()
 
 try:
