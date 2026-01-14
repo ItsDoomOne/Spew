@@ -33,7 +33,7 @@ def execute_file(filepath):
         with open(filepath, "r") as file:
             filecontent = file.read()
             stripped = line.strip()
-                if stripped.lower().startswith("print "):
+            if stripped.lower().startswith("print "):
                 print(stripped[6:])
     except:
         print("Error parsing file")
