@@ -61,7 +61,8 @@ try:
             print("  --help     display this info and exit")
         elif os.path.isfile(argument1):
             if is_spew_file(argument1) == True:
-                print("test")
+                print("input is a file.")
+                execute_file(argument1)
         elif argument1.startswith("http://") or argument1.startswith("https://"):
             try:
                 with open(tempPath, "wb") as file:
