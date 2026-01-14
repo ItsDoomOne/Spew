@@ -33,7 +33,6 @@ def execute_file(filepath):
         with open(filepath, "r") as file:
             filecontent = file.read()
             for line in filecontent.splitlines():
-                print(line)
                 if line.startswith("print"):
                     print(line.removeprefix("print "))
     except:
