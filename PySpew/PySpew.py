@@ -2,8 +2,7 @@ import sys
 import os
 import requests
 from platform import system
-print(system)
-
+print(os.system)
 if system == "Windows":
     tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
 elif system in ("Linux","Darwin","FreeBSD"):
