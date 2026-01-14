@@ -33,7 +33,7 @@ def execute_file(filepath):
             for line in filecontent.splitlines():
                 print(line)
                 if line == "print":
-                    print(line.removeprefix("print ")
+                    print(line.removeprefix("print "))
     except:
         print("Error parsing file")
         fancyexit()
