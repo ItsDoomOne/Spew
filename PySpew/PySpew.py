@@ -3,6 +3,14 @@ import os
 import requests
 from platform import system
 
+if system == "Windows":
+    tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
+elif system in ("Linux","Darwin","FreeBSD"):
+    tempPath = ("/tmp/spew/temp.spew")
+else:
+    raise OSError("Unsupported operating system.")  
+os.makedirs(os.path.dirname(tempPath), exist_ok=True)
+
 def fancyexit():
     if os.path.exists(tempPath):
         os.remove(tempPath)
@@ -18,14 +26,6 @@ except IndexError:
         print("Options:")
         print("  --help     display this info and exit")   
         fancyexit() 
-
-if system == "Windows":
-    tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
-elif system in ("Linux","Darwin","FreeBSD"):
-    tempPath = ("/tmp/spew/temp.spew")
-else:
-    raise OSError("Unsupported operating system.")  
-os.makedirs(os.path.dirname(tempPath), exist_ok=True)
 
 
 def execute_file(filepath):
