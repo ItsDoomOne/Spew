@@ -11,7 +11,8 @@ except IndexError:
         print("Display information about a Spew file.")
         print()
         print("Options:")
-        print("  --help     display this info and exit")    
+        print("  --help     display this info and exit")   
+        fancyexit() 
 
 if system == "Windows":
     tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
@@ -24,6 +25,7 @@ os.makedirs(os.path.dirname(tempPath), exist_ok=True)
 def fancyexit():
     if os.path.exists(tempPath):
         os.remove(tempPath)
+        sys.exit()
 
 def execute_file(filepath):
     try:
