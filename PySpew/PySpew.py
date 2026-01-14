@@ -3,6 +3,11 @@ import os
 import requests
 from platform import system
 
+def fancyexit():
+    if os.path.exists(tempPath):
+        os.remove(tempPath)
+        sys.exit()
+
 try:
     fullarguments = " ".join(sys.argv[1:])
     argument1 = sys.argv[1] 
@@ -22,10 +27,6 @@ else:
     raise OSError("Unsupported operating system.")  
 os.makedirs(os.path.dirname(tempPath), exist_ok=True)
 
-def fancyexit():
-    if os.path.exists(tempPath):
-        os.remove(tempPath)
-        sys.exit()
 
 def execute_file(filepath):
     try:
