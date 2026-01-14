@@ -1,7 +1,7 @@
-import sys
-import os
-import requests
-import platform
+import sys, os, requests, platform
+
+
+# Logica para definir o sistema operacional e definir onde fica o temp.
 system = platform.system()
 if system == "Windows":
     tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
@@ -32,9 +32,9 @@ def execute_file(filepath):
     try:
         with open(filepath, "r") as file:
             filecontent = file.read()
-            for line in filecontent.splitlines():
-                if line.startswith("print"):
-                    print(line.removeprefix("print "))
+                stripped = line.strip()
+                     if stripped.lower().startswith("print "):
+                        print(stripped[6:])
     except:
         print("Error parsing file")
         fancyexit()
@@ -47,8 +47,8 @@ def is_spew_file(filepath):
                 return True
             else:
                 return False
-    except IndexError:
-        FileNotFoundError
+    except (IndexError, FileNotFoundError):
+        return False
 
 try:           
     try:
@@ -59,7 +59,7 @@ try:
             print("Options:")
             print("  --help     display this info and exit")
         elif os.path.isfile(argument1):
-            if is_spew_file(argument1) == True:
+            if is_spew_file(argument1):
                 print("input is a file.")
                 execute_file(argument1)
         elif argument1.startswith("http://") or argument1.startswith("https://"):
@@ -75,7 +75,8 @@ try:
             print("Spew: "+fullarguments+" is invalid") 
     except IndexError:
         raise IndexError
-    except:
+    except Exception as e:
+        print("Erro:", e)
         fancyexit()
     
 finally:
