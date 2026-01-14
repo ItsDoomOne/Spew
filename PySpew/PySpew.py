@@ -2,7 +2,6 @@ import sys
 import os
 import requests
 from platform import system
-system = platform.system()
 
 try:
     fullarguments = " ".join(sys.argv[1:])
