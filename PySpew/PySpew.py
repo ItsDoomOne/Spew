@@ -2,6 +2,7 @@ import sys
 import os
 import requests
 from platform import system
+print(system)
 
 if system == "Windows":
     tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
