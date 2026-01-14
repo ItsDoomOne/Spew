@@ -34,7 +34,7 @@ def execute_file(filepath):
             filecontent = file.read()
             for line in filecontent.splitlines():
                 print(line)
-                if line == "print":
+                if line.startswith(print):
                     print(line.removeprefix("print "))
     except:
         print("Error parsing file")
