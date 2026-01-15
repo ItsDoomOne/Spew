@@ -5,3 +5,5 @@ print "This is once again, a test.
 PriNT This is a test, but again.
 print ""
 print bruh"
+shell fastfetch
+shell "curl -4 ip.me"

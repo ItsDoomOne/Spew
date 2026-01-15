@@ -39,6 +39,12 @@ def execute_file(filepath):
                         print(content[1:-1])
                     else:
                         print(content)
+                if stripped.lower().startswith("shell "):
+                    content = stripped[6:].strip()
+                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
+                        os.system(content[1:-1])
+                    else:
+                        os.system(content)
     except Exception as e:
         print("Error parsing file:", e)
         fancyexit()
