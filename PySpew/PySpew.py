@@ -31,12 +31,16 @@ except IndexError:
 def execute_file(filepath):
     try:
         with open(filepath, "r") as file:
-            filecontent = file.read()
-            stripped = line.strip()
-            if stripped.lower().startswith("print "):
-                print(stripped[6:])
-    except:
-        print("Error parsing file")
+            for line in file:
+                stripped = line.strip()
+                if stripped.lower().startswith("print "):
+                    content = stripped[6:].strip()
+                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
+                        print(content[1:-1])
+                    else:
+                        print(content)
+    except Exception as e:
+        print("Error parsing file:", e)
         fancyexit()
             
 def is_spew_file(filepath):
