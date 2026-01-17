@@ -1,0 +1,22 @@
+# PySpew Configuration File
+# For more information on each setting, please refer to the PySpew documentation.
+
+DISABLE_PRINT = false # this is specially useful for bash scripts that use pyspew.
+DISABLE_SHELL = true # disabling shell is useful for security reasons, although we have PROMPT_USER_FOR_DANGEROUS_COMMANDS.
+DISABLE_MKDIR = false # i do not know why someone would like do disable this, but better safe than sorry, users are way better than me finding bugs.
+DISABLE_FILE = false # disables inline and b64 only, not downloads.
+DISABLE_DOWNLOAD = false # downloads are very useful, but its good to prompt the size before downloading files bigger than 100MB.
+DISABLE_UNZIP = false # stopping uh zipbombs is useful, but i should research how to prevent them while also allowing unzipping. 
+DISABLE_ALIAS = false # disabling alias will also obviously disable unalias.
+DISABLE_DELETE = true # disabling delete is useful, although PySpew automatically deletes temp files.
+PROMPT_USER_FOR_BIG_DOWNLOADS = true
+BIG_DOWNLOAD_SIZE_MB = 100 # Megabytes as in 1000KB, not mebibytes.
+PROMPT_USER_FOR_EVERY_COMMAND = false # if you want to be extra safe and/or is developing spewfiles.
+PROMPT_USER_FOR_DANGEROUS_COMMANDS = true # useful if you enable shell.
+ALLOWED_SHELL_COMMANDS = ["printf", "echo", "ls", "dir", "cat", "type", "head", "tail", "more", "less", "cd", "pwd", "whoami"] # an allowlist is more secure than a blocklist.
+BLACKLISTED_SHELL_COMMANDS = ["rm", "del", "mv", "move", "cp", "copy", "shutdown", "reboot", "init 0", "init 6"]
+IGNORE_ALL_SAFETY_MEASURES_INCLUDING_DISABLING_AND_SHELL_COMMAND_BLACKLISTING_VERY_DANGEROUS = false # do not enable
+LOG_FILE_PATH = "pyspew.log"
+MAX_LOG_FILE_SIZE_MB = 5 # Megabytes as in 1000KB, not mebibytes.
+ALLOW_EXECUTING_OF_DIFFERENT_OS_COMMANDS = false # will probably break the script. maybe useful on *nix systems.
+DEBUG = true # this is mostly for me fixing bugs.

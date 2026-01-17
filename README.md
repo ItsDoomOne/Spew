@@ -15,5 +15,5 @@ File ❌
 Unzip ❌
 Alias ❌
 Delete ❌
-Delalias ❌
+Unalias ❌
 IF, ELSE and ELIF logic ❌
