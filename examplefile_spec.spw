@@ -1,0 +1,15 @@
+spew "Test File on Specification."
+print "Print command"
+shell "echo "shell command""
+mkdir /home/work/Documents/mkdir_command coolpath
+file $coolpath/coolfile.txt inline {"
+    this file is an example
+    very cool example
+    god bless brasil and arch linux
+"} coolfile
+file $coolpath/sample.zip url {"https://leohacker.org/sample.zip"} sample
+unzip sample $coolpath/sample/
+alias samplepath $coolpath/sample/
+delete $samplepath/coolfile.wow
+delalias samplepath
+delalias coolpath

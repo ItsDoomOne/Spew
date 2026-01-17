@@ -1,8 +1,9 @@
 # Spew Language/Spewfiles specification document
-## Version 0.1, 2025-12-15
+## Version 0.1.1, 2026-01-17
 
 ## Introduction
 Spewfiles are basically plaintext files which contain instructions for the Spew interpreter to execute, such as creating directories, creating files via inline text, creating binaries using base64, downloading files from the internet and unziping files. Spewfiles are executed by Spew interpreters, such as PySpew, CSpew, or Spew.NET. They are the base for the Spew project as a whole.
+Alias are used as standard bash aliases, although not connected, so a Spew alias won't show up in shell, but a shell alias can be used if implemented correctly. The correct way to use aliases is by using $ALIASNAME, which cannot contain spaces, punctuation or any non-alfanumerical character.
 
 ## Available commands and syntax
 
@@ -16,11 +17,11 @@ Where <path> is the path to the directory to create, and <alias> is the optional
 ### FILE
 FILE is a command used to create files via inline text, base64 or a URL. The syntax is as follows:
 
-FILE <path> <content> <alias>
+FILE <path> <type> <content> <alias>
 
-Where <path> is the path to the file to create, <content> is the URL, inline text or base64 to use as the file's content, and <alias> is the optional alias to use for the file throughout the file's execution. FILE can also be used for multiline inline text, by using brackets as follows:
+Where <path> is the path to the file to create, <type> is inline, b64 or URL, <content> is the URL, inline text or base64 to use as the file's content, and <alias> is the optional alias to use for the file throughout the file's execution. FILE can also be used for multiline inline text, by using brackets as follows:
 
-FILE <path> {
+FILE <path> <type> {
     <content line 1>
     <content line 2>
     ...
