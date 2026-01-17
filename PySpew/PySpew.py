@@ -1,4 +1,4 @@
-import sys, os, requests, platform
+import sys, os, requests, platform, subprocess
 
 
 # Logica para definir o sistema operacional e definir onde fica o temp.
@@ -39,13 +39,13 @@ def execute_file(filepath):
                         print(content[1:-1])
                     else:
                         print(content)
-                if stripped.lower().startswith("shell "):
+                elif stripped.lower().startswith("shell "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        os.system(content[1:-1])
+                        subprocess.run(content[1:-1], shell=True)
                     else:
-                        os.system(content)
-                if stripped.lower().startswith("mkdir "):
+                        subprocess.run(content, shell=True)
+                elif stripped.lower().startswith("mkdir "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
                         os.mkdir(content[1:-1])
@@ -83,7 +83,8 @@ try:
                 with open(tempPath, "wb") as file:
                     response = requests.get(argument1)
                     file.write(response.content)
-                    is_spew_file(tempPath)             
+                    is_spew_file(tempPath)
+                    execute_file(tempPath)             
             except requests.exceptions.RequestException as e:
                 print("Error: either the protocol is incorrect or the URL is unreachable")
                 print(f"Details: {e}")

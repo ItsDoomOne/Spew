@@ -5,6 +5,6 @@ print "This is once again, a test.
 PriNT This is a test, but again.
 print ""
 print bruh"
-shell fastfetch
+shell "echo barabang"
 shell "curl -4 ip.me"
 mkdir /home/work/handmeasprite/
