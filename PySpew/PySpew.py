@@ -1,8 +1,17 @@
-import sys, os, requests, subprocess
+import sys, os, requests, subprocess, tomllib
 from utils import path_setup, fancyexit
 tempPath = path_setup()
-print(tempPath)
+tempFile = (f"{tempPath}spewfile.spew")
 
+with open ("../exampleconf.toml", "rb") as conf:
+    config = tomllib.load(conf)
+debug = config["DEBUG"]
+
+def debugprint(text):
+    if debug:
+        print(text)
+
+debugprint(tempFile)
 
 try:
     fullarguments = " ".join(sys.argv[1:])
