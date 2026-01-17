@@ -7,3 +7,4 @@ print ""
 print bruh"
 shell fastfetch
 shell "curl -4 ip.me"
+mkdir /home/work/handmeasprite/
