@@ -1,20 +1,8 @@
-import sys, os, requests, platform, subprocess
+import sys, os, requests, subprocess
+from utils import path_setup, fancyexit
+tempPath = path_setup()
+print(tempPath)
 
-
-# Logica para definir o sistema operacional e definir onde fica o temp.
-system = platform.system()
-if system == "Windows":
-    tempPath = (os.getenv('TEMP')+"\\spew\\temp.spew")
-elif system in ("Linux","Darwin","FreeBSD"):
-    tempPath = ("/tmp/spew/temp.spew")
-else:
-    raise OSError("Unsupported operating system.")  
-os.makedirs(os.path.dirname(tempPath), exist_ok=True)
-
-def fancyexit():
-    if os.path.exists(tempPath):
-        os.remove(tempPath)
-        sys.exit()
 
 try:
     fullarguments = " ".join(sys.argv[1:])
@@ -26,7 +14,6 @@ except IndexError:
         print("Options:")
         print("  --help     display this info and exit")   
         fancyexit() 
-
 
 def execute_file(filepath):
     try:
