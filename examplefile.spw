@@ -1,10 +1,5 @@
 SPEW "Test File"
-Print "This is a test"
-PRINT ""this is a test, too"
-print "This is once again, a test.
-PriNT This is a test, but again.
-print ""
-print bruh"
-shell "echo barabang"
+print "print test"
+shell "shell test"
 shell "curl -4 ip.me"
 mkdir /home/work/handmeasprite/
