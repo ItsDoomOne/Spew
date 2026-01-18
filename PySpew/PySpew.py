@@ -2,17 +2,19 @@ import sys, os, requests, subprocess, tomllib
 from utils import path_setup, fancyexit
 tempPath = path_setup()
 tempFile = (f"{tempPath}spewfile.spew")
-
 with open ("../exampleconf.toml", "rb") as conf:
     config = tomllib.load(conf)
 debug = config["DEBUG"]
-
+disable_shell = config["DISABLE_SHELL"]
 def debugprint(text):
     if debug:
         print(text)
-
 debugprint(tempFile)
-
+def shellexec(exec):
+    if not disable_shell:
+        subprocess.run(exec, shell=True)
+    else:
+        print(f"Shell is disabled. Tried to run {exec}")
 try:
     fullarguments = " ".join(sys.argv[1:])
     argument1 = sys.argv[1] 
@@ -23,7 +25,6 @@ except IndexError:
         print("Options:")
         print("  --help     display this info and exit")   
         fancyexit() 
-
 def execute_file(filepath):
     try:
         with open(filepath, "r") as file:
@@ -38,9 +39,9 @@ def execute_file(filepath):
                 elif stripped.lower().startswith("shell "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        subprocess.run(content[1:-1], shell=True)
+                        shellexec(content[1:-1])
                     else:
-                        subprocess.run(content, shell=True)
+                        shellexec(content)
                 elif stripped.lower().startswith("mkdir "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
