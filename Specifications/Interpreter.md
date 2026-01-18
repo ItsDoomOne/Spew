@@ -1,5 +1,5 @@
 # Spew Interpreter specification document
-## Version 0.1, 2025-12-15
+## Version 0.1.1, 2026-01-18
 
 ## Introduction
 Spew is a DSL (Domain Specific Language) for installing and deploying files and directories to remote computers via Spewfiles.
@@ -11,11 +11,14 @@ Spew commands are the fundamental 'building blocks' of Spewfiles, used for vario
 ## Spew configuration
 Spew configuration deeply depends on the Spew interpreter used to execute the Spewfile, but some configuration options should not be interpreter-specific, such as safety options to disable certain Spew commands, safety options to prompt the user before executing certain Spew commands, and safety options to prompt the user before deleting certain files or directories. Some useful options also include disabling the removal of the root path in Unix-Like systems, or the deletion of %WinDir% in Windows NT.
 
+## Spew command-line arguments
+A Spew interpreter must accept some arguments defined here, such as "--help" which provides help similar to how GNU Coreutils does it, and it also must accept config lines as arguments, such as DEBUG, overriding the config file. This is specially useful for running a script that relies on shell commands without enabling shell commands on the config file.
+
 ## Spew operation
 Spew operation is the specification of how a Spew interpreter should execute a Spewfile. The Spew interpreter should read the Spewfile and execute the Spew commands in the order they are written, and do some other operations such as creating aliases for directories as the user requests (generally by adding an additional string after the MKDIR command). Other operations include accurately executing all the Spew commands in the Spewfile. The Spew interpreter shouldn't lack security features such as optionally disabling commands as the user desires, or prompting the user before executing certain commands.
 
 ## Spew security
-The spew interpreter should be memory-safe, and should stop 3rd party software from tampering with the execution process, so that the Spewfile is executed as intended and the user is not affected. 
+The spew interpreter should be memory-safe, and should stop 3rd party software from tampering with the execution process, so that the Spewfile is executed as intended and the user is not affected. It also means that a Spewfile should not have permission to edit the config file, allowing malicious code execution, even though the configuration file only gets loaded once, it can be abused on the next  runtime of the software.
 
 ## Spew performance
 Spew interpreters should be quite fast and efficient, and shouldn't take too much resources from the machine. It must be optimized enough so that the biggest performance bottleneck is the actual programming language behind the interpreter, and not the interpreter itself.
