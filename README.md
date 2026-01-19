@@ -8,9 +8,9 @@ It's still being implemented, and down here you can find what was implemented an
 
 ## Implementation list
 
-Print ✅ (14/01/2025) \
-Shell ✅ (15/01/2025) \
-Mkdir ✅ (16/01/2025) \
+Print ✅ (14/01/2026) \
+Shell ✅ (15/01/2026) \
+Mkdir ✅ (16/01/2026) \
 File ❌ \
 Unzip ❌ \
 Alias ❌ \
