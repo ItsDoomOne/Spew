@@ -8,13 +8,25 @@ def debugprint(text):
     if cfg.debug:
         print(text)
 
-def shellexec(exec):
+def shellexec(shellexec):
     if not cfg.disable_shell:
-        subprocess.run(exec, shell=True)
+        subprocess.run(shellexec, shell=True)
     else:
-        print(f"Shell is disabled. Tried to run {exec}")
+        debugprint(f"Shell is disabled. Tried to run {shellexec}")
+def mkdirexec(mkdirexec):
+    if not cfg.disable_mkdir:
+        os.mkdir(mkdirexec)
+    else:
+        debugprint(f"Mkdir is disabled. Tried to create {mkdirexec}")
+def printexec(printexec):
+    if not cfg.disable_print:
+        print(printexec)
+    else:
+        debugprint(f"Print is disabled. Tried to print {printexec}")
+
 
 def execute_file(filepath):
+    debugprint(filepath)
     try:
         with open(filepath, "r") as file:
             for line in file:
@@ -22,9 +34,9 @@ def execute_file(filepath):
                 if stripped.lower().startswith("print "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        print(content[1:-1])
+                        printexec(content[1:-1])
                     else:
-                        print(content)
+                        printexec(content)
                 elif stripped.lower().startswith("shell "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
@@ -34,9 +46,9 @@ def execute_file(filepath):
                 elif stripped.lower().startswith("mkdir "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        os.mkdir(content[1:-1])
+                        mkdirexec(content[1:-1])
                     else:
-                        os.mkdir(content)
+                        mkdirexec(content)
     except Exception as e:
         print("Error parsing file:", e)
         fancyexit()
