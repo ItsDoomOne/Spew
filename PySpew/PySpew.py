@@ -2,6 +2,8 @@ import sys, os, requests, subprocess
 from utils import path_setup, fancyexit
 import config as cfg
 
+validcommands = ["mkdir", "file", "shell", "unzip", "print", "alias", "delete", "delalias"]
+
 tempPath = path_setup()
 tempFile = (f"{tempPath}spewfile.spew")
 def debugprint(text):
@@ -24,6 +26,20 @@ def printexec(printexec):
     else:
         debugprint(f"Print is disabled. Tried to print {printexec}")
 
+def removeexec(removepath):
+    if not cfg.disable_delete:
+        debugprint(f"Path to be removed is {removepath}")
+        if not os.path.exists(removepath):
+            debugprint(f"DEBUG: Path {removepath} does not exist")
+            fancyexit()
+        if os.path.isfile(removepath):
+            debugprint(f"Path {removepath} appears to be a file")
+            os.remove(removepath)
+        else:
+            debugprint(f"Path {removepath} appears to be a folder")
+            os.rmdir(removepath) #currently only deletes empty directories. 
+    else:
+        debugprint(f"Delete is disabled. Tried to delete {removepath}")
 
 def execute_file(filepath):
     debugprint(filepath)
@@ -31,6 +47,12 @@ def execute_file(filepath):
         with open(filepath, "r") as file:
             for line in file:
                 stripped = line.strip()
+                if stripped.lower().startswith("spew "):
+                    content = stripped[4:].strip()
+                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
+                        debugprint(f"Spew file is called '{content[1:-1]}'")
+                    else:
+                        debugprint(content)
                 if stripped.lower().startswith("print "):
                     content = stripped[6:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
@@ -49,6 +71,13 @@ def execute_file(filepath):
                         mkdirexec(content[1:-1])
                     else:
                         mkdirexec(content)
+                elif stripped.lower().startswith("delete "):
+                    content = stripped[7:].strip()
+                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
+                        removeexec(content[1:-1])
+                    else:
+                        removeexec(content)
+                ## TO BE ADDED: IF LINE NOT IN [validcommands] GIVE ERROR AND HALT
     except Exception as e:
         print("Error parsing file:", e)
         fancyexit()

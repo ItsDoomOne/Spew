@@ -62,4 +62,11 @@ DELALIAS <alias>
 
 Where <alias> is the alias to delete. Note that it will not delete the files or directories associated with the alias, but only the reference to it used throughout the Spewfile.
 
+### PRINT
+PRINT is a command that simply prints text in the console. The syntax is as follows:
+
+PRINT <text>
+
+Where <text> is a valid string of alphanumerical characters and symbols. Possibly even emojis if the interpreter supports it.
+
 

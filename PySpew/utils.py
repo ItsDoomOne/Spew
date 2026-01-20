@@ -13,7 +13,9 @@ def path_setup():
     os.makedirs(os.path.dirname(tempPath), exist_ok=True)
     return tempPath
 
-def fancyexit():
+def fancyexit(text=None):
+    if not text == None:
+        print(text)
     if os.path.exists(tempPath):
         shutil.rmtree(tempPath)
     sys.exit()

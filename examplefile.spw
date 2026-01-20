@@ -2,4 +2,4 @@ SPEW "Test File"
 print "print test"
 shell "shell test"
 shell "curl -4 ip.me"
-mkdir /home/work/handmeasprite/
+delete /home/doom/examplepath/
