@@ -14,17 +14,17 @@ def shellexec(shellexec):
     if not cfg.disable_shell:
         subprocess.run(shellexec, shell=True)
     else:
-        debugprint(f"Shell is disabled. Tried to run {shellexec}")
+        debugprint(f"DEBUG: Shell is disabled. Tried to run {shellexec}")
 def mkdirexec(mkdirexec):
     if not cfg.disable_mkdir:
         os.mkdir(mkdirexec)
     else:
-        debugprint(f"Mkdir is disabled. Tried to create {mkdirexec}")
+        debugprint(f"DEBUG: Mkdir is disabled. Tried to create {mkdirexec}")
 def printexec(printexec):
     if not cfg.disable_print:
         print(printexec)
     else:
-        debugprint(f"Print is disabled. Tried to print {printexec}")
+        debugprint(f"DEBUG: Print is disabled. Tried to print {printexec}")
 
 def removeexec(removepath):
     if not cfg.disable_delete:
@@ -33,16 +33,16 @@ def removeexec(removepath):
             debugprint(f"DEBUG: Path {removepath} does not exist")
             fancyexit()
         if os.path.isfile(removepath):
-            debugprint(f"Path {removepath} appears to be a file")
+            debugprint(f"DEBUG: Path {removepath} appears to be a file")
             os.remove(removepath)
         else:
-            debugprint(f"Path {removepath} appears to be a folder")
+            debugprint(f"DEBUG: Path {removepath} appears to be a folder")
             os.rmdir(removepath) #currently only deletes empty directories. 
     else:
-        debugprint(f"Delete is disabled. Tried to delete {removepath}")
+        debugprint(f"DEBUG: Delete is disabled. Tried to delete {removepath}")
 
 def execute_file(filepath):
-    debugprint(filepath)
+    debugprint(f"DEBUG: Filepath is {filepath}")
     try:
         with open(filepath, "r") as file:
             for line in file:
@@ -50,7 +50,7 @@ def execute_file(filepath):
                 if stripped.lower().startswith("spew "):
                     content = stripped[4:].strip()
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        debugprint(f"Spew file is called '{content[1:-1]}'")
+                        debugprint(f"DEBUG: Spew file is called '{content[1:-1]}'")
                     else:
                         debugprint(content)
                 if stripped.lower().startswith("print "):
@@ -93,7 +93,7 @@ def is_spew_file(filepath):
     except (IndexError, FileNotFoundError):
         return False
 
-debugprint("DEBUG: Execução passou dos DEFs")
+debugprint("DEBUG: Execution passed defs")
 
 try:
     fullarguments = " ".join(sys.argv[1:])
@@ -108,7 +108,7 @@ except IndexError:
         print("  --help     display this info and exit")   
         fancyexit() 
 
-debugprint("DEBUG: Execução passou do teste de argumentos")
+debugprint("DEBUG: Execution passed the argument processing")
 
 try:           
     if argument1 == "--help":
@@ -131,11 +131,11 @@ try:
             print("Error: either the protocol is incorrect or the URL is unreachable")
             debugprint(f"Details: {e}")
     else:
-        print("Spew: "+fullarguments+" is invalid") 
+        print(f"Error:{fullarguments} is invalid") 
 except IndexError:
     raise IndexError
 except Exception as e:
-    debugprint(f"DEBUG: Detaalhes: {e}")
+    debugprint(f"DEBUG: Execution halted: {e}")
     fancyexit()
     
 finally:
