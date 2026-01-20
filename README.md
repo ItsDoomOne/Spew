@@ -14,7 +14,7 @@ Mkdir ✅ (16/01/2026) \
 File ❌ \
 Unzip ❌ \
 Alias ❌ \
-Delete ❌ \
+Delete ✅ (20/01/2026) \
 Unalias ❌ \
 IF, ELSE and ELIF logic ❌ \
 
