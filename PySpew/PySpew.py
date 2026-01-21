@@ -1,49 +1,38 @@
-import sys, os, requests, subprocess
+import sys, os, requests
 from utils import path_setup, fancyexit, help_prompt, debugprint
-from execfile import printexec, shellexec, mkdirexec, removeexec
-
-validcommands = ["mkdir", "file", "shell", "unzip", "print", "alias", "delete", "delalias"]
-
+from execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzipexec, aliasexec, delaliasexec
+validcommands = {
+    "spew": None,
+    "print": printexec,
+    "shell": shellexec,
+    "delete": removeexec,
+    "mkdir": mkdirexec,
+    "file": fileexec,
+    "unzip": unzipexec,
+    "alias": aliasexec,
+    "delalias": delaliasexec,
+}
 tempPath = path_setup()
 tempFile = (f"{tempPath}spewfile.spew")
 
 def execute_file(filepath):
-    debugprint(f"DEBUG: Filepath is {filepath}")
     try:
         with open(filepath, "r") as file:
             for line in file:
                 stripped = line.strip()
-                if stripped.lower().startswith("spew "):
-                    content = stripped[4:].strip()
+                if not stripped:
+                    continue
+                currentCommand = ((stripped.split()[0]).lower())
+                if currentCommand in validcommands:
+                    remove = (len(currentCommand) + 1)
+                    content = stripped[remove:].strip()
+                    currentFunction = validcommands.get(currentCommand)
+                    if not currentFunction:
+                        continue
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        debugprint(f"DEBUG: Spew file is called '{content[1:-1]}'")
+                        currentFunction(content[1:-1])
                     else:
-                        debugprint(content)
-                if stripped.lower().startswith("print "):
-                    content = stripped[6:].strip()
-                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        printexec(content[1:-1])
-                    else:
-                        printexec(content)
-                elif stripped.lower().startswith("shell "):
-                    content = stripped[6:].strip()
-                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        shellexec(content[1:-1])
-                    else:
-                        shellexec(content)
-                elif stripped.lower().startswith("mkdir "):
-                    content = stripped[6:].strip()
-                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        mkdirexec(content[1:-1])
-                    else:
-                        mkdirexec(content)
-                elif stripped.lower().startswith("delete "):
-                    content = stripped[7:].strip()
-                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        removeexec(content[1:-1])
-                    else:
-                        removeexec(content)
-                ## TO BE ADDED: IF LINE NOT IN [validcommands] GIVE ERROR AND HALT
+                        currentFunction(content)
     except Exception as e:
         print("Error parsing file:", e)
         fancyexit()

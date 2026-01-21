@@ -1,5 +1,5 @@
-SPEW "Test File"
+spew "Test File"
 print "print test"
-shell "shell test"
+shell "echo test"
 shell "curl -4 ip.me"
 delete /home/doom/examplepath/
