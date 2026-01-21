@@ -1,5 +1,5 @@
 import sys, os, requests, subprocess
-from utils import path_setup, fancyexit
+from utils import path_setup, fancyexit, help_prompt
 import config as cfg
 
 validcommands = ["mkdir", "file", "shell", "unzip", "print", "alias", "delete", "delalias"]
@@ -101,22 +101,14 @@ try:
     debugprint(f"DEBUG: fullarguments = {fullarguments}")
     debugprint(f"DEBUG: argument1 = {argument1}")
 except IndexError:
-        print("Usage: spew [OPTION]... <path or url>")
-        print("Display information about a Spew file.")
-        print()
-        print("Options:")
-        print("  --help     display this info and exit")   
-        fancyexit() 
+    help_prompt()
+    fancyexit() 
 
 debugprint("DEBUG: Execution passed the argument processing")
 
 try:           
     if argument1 == "--help":
-        print("Usage: spew [OPTION]... <path or url>")
-        print("Display information about a Spew file.")
-        print()
-        print("Options:")
-        print("  --help     display this info and exit")
+        help_prompt()
     elif os.path.isfile(argument1) and is_spew_file(argument1):
         debugprint("DEBUG: input is a file.")
         execute_file(argument1)

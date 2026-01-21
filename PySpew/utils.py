@@ -19,3 +19,10 @@ def fancyexit(text=None):
     if os.path.exists(tempPath):
         shutil.rmtree(tempPath)
     sys.exit()
+
+def help_prompt():
+    print("Usage: spew [OPTION]... <path or url>")
+    print("Display information about a Spew file.")
+    print()
+    print("Options:")
+    print("  --help     display this info and exit")
