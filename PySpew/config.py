@@ -1,6 +1,6 @@
 import tomllib
 
-with open ("../exampleconf.toml", "rb") as conf:
+with open ("./config/config.toml", "rb") as conf:
     config = tomllib.load(conf)
 
 debug = config["DEBUG"]

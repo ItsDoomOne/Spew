@@ -1,0 +1,23 @@
+# Plans for Spew and PySpew
+Here are some plants I have for both projects. This file is very simple and should'nt be very serious, as many things here probably wont be implemented or will be implemented very late into the development.
+
+## SpewFile Format 2.0
+The current SpewFile format as of Jan 21, 2026 is SpewFile 0.1.1.
+
+It has some problems which were found by me when developing, mostly about integrated files.
+
+The current format is based on a text file with a .spew or .spw extension, which is very limiting given the fact that to create files, you can only do inline text (so, text files), downloads or base64. That is the biggest problem of the software (excluding security, lol). The most efficient offline way of encoding binary files that I figured how to implement was base64, which according to my calculations is basically 1.333333... times more heavy than the binary data. Thats because it converts every three bytes of binary data into 4 characters. Thats a 4/3 ratio, or 1.3333 infinetely repeating. So for a 100MB file, using b64 would result in a 33mb to 37mb increase.
+
+My solution to this problem is SpewFile Format 2, or Spew 2, which basically a more efficient way of storing data and metadata. Its a zstd-compressed tarball, basically. Which means you can store the binary files as they are, instead of using base64 while also compressing them and saving space. 
+The file tree is like this:
+
+Example.spw
+├ spew.txt
+└ files
+  ├ wow.png
+  ├ samplescript.sh
+  └ pluh.mp3
+
+If I can implement it, it would be the equivalent of zstd:3 on fstab, so that would be like zstd compression on third level.
+The file extension would be .spw or .spew like current the current format.
+Also worth noting that SpewFile Format 1.0 will still be supported, because its simpler and better for some uses.
