@@ -9,6 +9,7 @@ DISABLE_DOWNLOAD = false # downloads are very useful, but its good to prompt the
 DISABLE_UNZIP = false # stopping uh zipbombs is useful, but i should research how to prevent them while also allowing unzipping. 
 DISABLE_ALIAS = false # disabling alias will also obviously disable unalias.
 DISABLE_DELETE = true # disabling delete is useful, although PySpew automatically deletes temp files.
+PRINT_IF_COMMAND_DISABLED = false # If true, will print if command is disabled like in DEBUG mode, without the other debug features
 PROMPT_USER_FOR_BIG_DOWNLOADS = true
 BIG_DOWNLOAD_SIZE_MB = 100 # Megabytes as in 1000KB, not mebibytes.
 PROMPT_USER_FOR_EVERY_COMMAND = false # if you want to be extra safe and/or is developing spewfiles.
