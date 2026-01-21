@@ -1,6 +1,11 @@
 import platform, sys, os, shutil
+import config as cfg
 
 system = platform.system()
+
+def debugprint(text):
+    if cfg.debug:
+        print(text)
 
 def path_setup():
     global tempPath
