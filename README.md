@@ -20,4 +20,8 @@ IF, ELSE and ELIF logic ❌ \
 
 ## Some information I must add
 As I speak two languages, English and Portuguese, I find myself various times writing code in both, accidentally. Maybe that is because I'm so focused I do not even acknowledge in what language I'm writing in print statements. \
-Most of the time, those are commit messages and debugging texts. I'm extra careful in Specifications because its text-writing and not code-writing.
+Most of the time, those are commit messages and debugging texts. I'm extra careful in Specifications because its text-writing and not code-writing. 
+
+## To-Do
+
+1. Make a documentation file for the config file.

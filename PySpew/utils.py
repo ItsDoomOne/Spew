@@ -2,9 +2,17 @@ import platform, sys, os, shutil
 import config as cfg
 
 system = platform.system()
+print_if_disabled = False
+
+if cfg.debug or cfg.print_if_disabled: 
+    print_if_disabled = True
 
 def debugprint(text):
     if cfg.debug:
+        print(text)
+
+def disabledprint(text):
+    if print_if_disabled:
         print(text)
 
 def path_setup():
