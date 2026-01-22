@@ -1,0 +1,7 @@
+spew "File Test"
+print "This file tests the 'fileexec' function."
+file b64 sampletext
+file inline sampletext
+file url sampletext
+file wow sampletext
+file

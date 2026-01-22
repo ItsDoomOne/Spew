@@ -9,6 +9,7 @@ def shellexec(run):
         subprocess.run(run, shell=True)
     else:
         disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}")
+
 def mkdirexec(run):
     if run == "":
         return   
@@ -16,6 +17,7 @@ def mkdirexec(run):
         os.mkdir(run)
     else:
         disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}")
+
 def printexec(run):
     if run == "":
         return
@@ -23,26 +25,6 @@ def printexec(run):
         print(run)
     else:
         disabledprint(f"DEBUG: Print is disabled. Tried to print {run}")
-
-def fileexec(run):
-    if run == "":
-        return
-    print("not implemented")
-
-def unzipexec(run):
-    if run == "":
-        return
-    print("not implemented")
-
-def aliasexec(run):
-    if run == "":
-        return
-    print("not implemented")
-
-def delaliasexec(run):
-    if run == "":
-        return
-    print("not implemented")
 
 def removeexec(run):
     if run == "":
@@ -60,3 +42,35 @@ def removeexec(run):
             os.rmdir(run) #currently only deletes empty directories. 
     else:
         disabledprint(f"DEBUG: Delete is disabled. Tried to delete {run}")
+
+def fileexec(run):
+    if run == "":
+        return
+    filetype = (run.split()[0]).lower()
+    if filetype == "inline":
+        #inlinelogic
+        print("Inline is not implemented")
+    elif filetype == "b64":
+        #inlinelogic
+        print("Base 64 is not implemented")
+    elif filetype == "url":
+        #inlinelogic
+        print("URL is not implemented")
+    else:
+        debugprint(f"File type {filetype} does not exist.")
+    return    
+
+def unzipexec(run):
+    if run == "":
+        return
+    print("not implemented")
+
+def aliasexec(run):
+    if run == "":
+        return
+    print("not implemented")
+
+def delaliasexec(run):
+    if run == "":
+        return
+    print("not implemented")
