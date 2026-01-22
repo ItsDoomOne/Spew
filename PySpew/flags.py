@@ -1,6 +1,10 @@
+# This file is intended for testing the runtime flags.
+# It will be removed a few commits from now and just exists to prove my work is not AI-made.
+# It's very stupid, but I really don't want to just spew a finished work of code in the main file
+# And I dont wanna mess with branches right now. I just want to work.
 import sys, os, requests
-from utils import path_setup, fancyexit, help_prompt, debugprint
-from execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzipexec, aliasexec, delaliasexec
+from PySpew.utils import path_setup, fancyexit, help_prompt, debugprint
+from PySpew.execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzipexec, aliasexec, delaliasexec
 validcommands = {
     "spew": None,
     "print": printexec,
