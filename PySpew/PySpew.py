@@ -1,6 +1,8 @@
 import sys, os, requests
 from utils import path_setup, fancyexit, help_prompt, debugprint
 from execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzipexec, aliasexec, delaliasexec
+
+validflags = ["a", "abc"]
 validcommands = {
     "spew": None,
     "print": printexec,
@@ -14,6 +16,12 @@ validcommands = {
 }
 tempPath = path_setup()
 tempFile = (f"{tempPath}spewfile.spew")
+
+def check_flags(string):
+    debugprint(f"DEBUG: CFString is {string}")
+    for word in string.split():
+        if word in validflags:
+            debugprint(f"{word} was used and is a valid flag")
 
 def execute_file(filepath):
     try:
@@ -55,6 +63,7 @@ try:
     argument1 = sys.argv[1]
     debugprint(f"DEBUG: fullarguments = {fullarguments}")
     debugprint(f"DEBUG: argument1 = {argument1}")
+    check_flags(fullarguments)
 except IndexError:
     help_prompt()
     fancyexit() 
