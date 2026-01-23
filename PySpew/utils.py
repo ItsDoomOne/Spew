@@ -53,6 +53,9 @@ def base64_decode(string, path):
     path_object = Path(path)
     if path_object.parent.exists():
         print("Parent is real")
+        decoded = base64.b64decode(string)
+        with open(path_object, "wb") as f:
+            f.write(decoded)
     else:
         print("lab grown")
     base64.decode
