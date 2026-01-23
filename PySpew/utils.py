@@ -1,5 +1,6 @@
-import platform, sys, os, shutil
+import platform, sys, os, shutil, base64
 import config as cfg
+from pathlib import Path
 
 system = platform.system()
 print_if_disabled = False
@@ -39,3 +40,19 @@ def help_prompt():
     print()
     print("Options:")
     print("  --help     display this info and exit")
+
+def debugmenu():
+    print("DEBUG MENU")
+    print("You can: (1) Test current development material or (2) Exit ")
+    option = input("Choose your fate: ")
+    if option == "1":
+        base64_decode("YQphYgphYmMKYWJjZAphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5egoxMjM0NTY3ODkwCiciw6d+Xgo=", "/home/doom/bse")
+
+def base64_decode(string, path):
+    print("working ig")
+    path_object = Path(path)
+    if path_object.parent.exists():
+        print("Parent is real")
+    else:
+        print("lab grown")
+    base64.decode
