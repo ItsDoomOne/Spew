@@ -1,6 +1,6 @@
 import config as cfg
 import subprocess, os
-from utils import debugprint, fancyexit, disabledprint
+from utils import debugprint, fancyexit, disabledprint, base64_decode
 
 def shellexec(run):
     if run == "":
@@ -46,13 +46,16 @@ def removeexec(run):
 def fileexec(run):
     if run == "":
         return
+    if not len(run.split()) == 3:
+        fancyexit("File command is malformed.")
     filetype = (run.split()[0]).lower()
+    content = (run.split()[1])
+    path = (run.split()[2]).lower()
     if filetype == "inline":
         #inlinelogic
         print("Inline is not implemented")
     elif filetype == "b64":
-        #inlinelogic
-        print("Base 64 is not implemented")
+        base64_decode(content, path)
     elif filetype == "url":
         #inlinelogic
         print("URL is not implemented")

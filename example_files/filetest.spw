@@ -1,7 +1,2 @@
 spew "File Test"
-print "This file tests the 'fileexec' function."
-file b64 sampletext
-file inline sampletext
-file url sampletext
-file wow sampletext
-file
+file b64 YQphYgphYmMKYWJjZAphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5egoxMjM0NTY3ODkwCiciw6d+Xgo= /home/doom/base64
