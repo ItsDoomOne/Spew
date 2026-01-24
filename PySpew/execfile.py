@@ -1,6 +1,6 @@
 import config as cfg
 import subprocess, os
-from utils import debugprint, fancyexit, disabledprint, base64_decode
+from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode
 
 def shellexec(run):
     if run == "":
@@ -56,6 +56,8 @@ def fileexec(run):
         print("Inline is not implemented")
     elif filetype == "b64":
         base64_decode(content, path)
+    elif filetype == "a85":
+        ascii85_decode(content, path)
     elif filetype == "url":
         #inlinelogic
         print("URL is not implemented")

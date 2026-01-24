@@ -49,13 +49,20 @@ def debugmenu():
         base64_decode("YQphYgphYmMKYWJjZAphYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5egoxMjM0NTY3ODkwCiciw6d+Xgo=", "/home/doom/bse")
 
 def base64_decode(string, path):
-    print("working ig")
     path_object = Path(path)
     if path_object.parent.exists():
-        print("Parent is real")
+        debugprint(f"{path} Parent is real")
         decoded = base64.b64decode(string)
         with open(path_object, "wb") as f:
             f.write(decoded)
     else:
-        print("lab grown")
-    base64.decode
+        fancyexit(f"{path} Parent does not exist; halting.")
+def ascii85_decode(string, path):
+    path_object = Path(path)
+    if path_object.parent.exists():
+        debugprint(f"{path} Parent is real")
+        decoded = base64.a85decode(string)
+        with open(path_object, "wb") as f:
+            f.write(decoded)
+    else:
+        fancyexit(f"{path} Parent does not exist; halting.")
