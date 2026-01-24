@@ -1,4 +1,4 @@
-import platform, sys, os, shutil, base64
+import platform, sys, os, shutil, base64, tarfile
 import config as cfg
 from pathlib import Path
 
@@ -66,3 +66,9 @@ def ascii85_decode(string, path):
             f.write(decoded)
     else:
         fancyexit(f"{path} Parent does not exist; halting.")
+def execute_spewfile2(path):
+    path_object = Path(path)
+    if path_object.exists():
+        #extract to temppath defined in main script
+        print("WORK IN PROGRESS")
+        
