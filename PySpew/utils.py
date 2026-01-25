@@ -1,4 +1,5 @@
 import platform, sys, os, shutil, base64, tarfile
+import requests
 import config as cfg
 from pathlib import Path
 
@@ -34,6 +35,16 @@ def fancyexit(text=None):
         shutil.rmtree(tempPath)
     sys.exit()
 
+def download_file(url, path):
+    if (url.startswith("http://") or url.startswith("https://")):
+        try:
+            with open(path, "wb") as file:
+                response = requests.get(url)
+                file.write(response.content)           
+        except requests.exceptions.RequestException as e:
+            print("Error: either the protocol is incorrect or the URL is unreachable")
+            debugprint(f"Details: {e}")
+
 def help_prompt():
     print("Usage: spew [OPTION]... <path or url>")
     print("Display information about a Spew file.")
@@ -57,6 +68,7 @@ def base64_decode(string, path):
             f.write(decoded)
     else:
         fancyexit(f"{path} Parent does not exist; halting.")
+
 def ascii85_decode(string, path):
     path_object = Path(path)
     if path_object.parent.exists():
@@ -66,6 +78,7 @@ def ascii85_decode(string, path):
             f.write(decoded)
     else:
         fancyexit(f"{path} Parent does not exist; halting.")
+        
 def execute_spewfile2(path):
     path_object = Path(path)
     if path_object.exists():
