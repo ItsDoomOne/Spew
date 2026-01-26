@@ -1,6 +1,6 @@
 import config as cfg
 import subprocess, os
-from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode
+from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode, download_file
 
 def shellexec(run):
     if run == "":
@@ -59,8 +59,7 @@ def fileexec(run):
     elif filetype == "a85":
         ascii85_decode(content, path)
     elif filetype == "url":
-        #inlinelogic
-        print("URL is not implemented")
+        download_file(content, path)
     else:
         debugprint(f"File type {filetype} does not exist.")
     return    
