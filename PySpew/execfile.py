@@ -1,12 +1,13 @@
 import config as cfg
-import subprocess, os
+from subprocess import run as runproc
 from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode, download_file
+from pathlib import Path
 
 def shellexec(run):
     if run == "":
         return
     if not cfg.disable_shell:
-        subprocess.run(run, shell=True)
+        runproc(run, shell=True)
     else:
         disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}")
 
@@ -14,7 +15,7 @@ def mkdirexec(run):
     if run == "":
         return   
     if not cfg.disable_mkdir:
-        os.mkdir(run)
+        Path(run).mkdir()
     else:
         disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}")
 
@@ -31,15 +32,15 @@ def removeexec(run):
         return
     if not cfg.disable_delete:
         debugprint(f"Path to be removed is {run}")
-        if not os.path.exists(run):
+        if not Path(run).exists():
             debugprint(f"DEBUG: Path {run} does not exist")
             fancyexit()
-        if os.path.isfile(run):
+        if Path(run).is_file():
             debugprint(f"DEBUG: Path {run} appears to be a file")
-            os.remove(run)
+            Path(run).unlink()
         else:
             debugprint(f"DEBUG: Path {run} appears to be a folder")
-            os.rmdir(run) #currently only deletes empty directories. 
+            Path(run).rmdir() #currently only deletes empty directories. 
     else:
         disabledprint(f"DEBUG: Delete is disabled. Tried to delete {run}")
 

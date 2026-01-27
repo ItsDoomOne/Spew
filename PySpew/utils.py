@@ -1,7 +1,8 @@
-import platform, sys, os, shutil, base64, tarfile
+import platform, sys, shutil, base64, tarfile
 import requests
 import config as cfg
 from pathlib import Path
+from os import getenv
 
 system = platform.system()
 print_if_disabled = False
@@ -20,18 +21,18 @@ def disabledprint(text):
 def path_setup():
     global tempPath
     if system == "Windows":
-        tempPath = (os.getenv('TEMP')+"\\spew\\")
+        tempPath = (getenv('TEMP')+"\\spew\\")
     elif system in ("Linux","Darwin","FreeBSD"):
         tempPath = ("/tmp/spew/")
     else:
         raise OSError("Unsupported operating system.")  
-    os.makedirs(os.path.dirname(tempPath), exist_ok=True)
+    Path(tempPath).mkdir(exist_ok=True, parents=True)
     return tempPath
 
 def fancyexit(text=None):
     if not text == None:
         print(text)
-    if os.path.exists(tempPath):
+    if Path(tempPath).exists:
         shutil.rmtree(tempPath)
     sys.exit()
 
