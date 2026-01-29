@@ -21,10 +21,12 @@ tempFile = (f"{tempPath}spewfile.spew")
 def check_flags(string):
     debugprint(f"DEBUG: CFString is {string}")
     for word in string.split():
-        if word.lower() in validflags:
-            debugprint(f"{word} was used and is a valid flag")
-        elif word.lower() == "debugmenu":
-            debugmenu()
+        if not word.lower().endswith(".spw") or word.lower().endswith(".spew"):
+            if any(word.lower().startswith(prefix) for prefix in validflags):
+                debugprint(f"{word} was used and is a valid flag")
+            elif word.lower() == "debugmenu":
+                debugmenu()
+
 
 def execute_file(filepath):
     try:
