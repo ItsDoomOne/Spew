@@ -85,7 +85,7 @@ def execute_spewfile2(path):
     if not path_object.exists():
         print(f"Tarfile {path} does not exist.")
     try:
-        with tarfile.open(path, "r") as tar:
+        with tarfile.open(path, "r:zst") as tar:
             tar.extractall(path=tempPath)
         print(f"Tarfile {path} successfully extracted to {tempPath}")
     except FileNotFoundError:
