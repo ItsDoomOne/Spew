@@ -1,4 +1,4 @@
-import config as cfg
+from config import flags
 from subprocess import run as runproc
 from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode, download_file
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 def shellexec(run):
     if run == "":
         return
-    if not cfg.disable_shell:
+    if not flags["disable_shell"]:
         runproc(run, shell=True)
     else:
         disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}")
@@ -14,7 +14,7 @@ def shellexec(run):
 def mkdirexec(run):
     if run == "":
         return   
-    if not cfg.disable_mkdir:
+    if not flags["disable_mkdir"]:
         Path(run).mkdir()
     else:
         disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}")
@@ -22,7 +22,7 @@ def mkdirexec(run):
 def printexec(run):
     if run == "":
         return
-    if not cfg.disable_print:
+    if not flags["disable_print"]:
         print(run)
     else:
         disabledprint(f"DEBUG: Print is disabled. Tried to print {run}")
@@ -30,7 +30,7 @@ def printexec(run):
 def removeexec(run):
     if run == "":
         return
-    if not cfg.disable_delete:
+    if not flags["disable_delete"]:
         debugprint(f"Path to be removed is {run}")
         if not Path(run).exists():
             debugprint(f"DEBUG: Path {run} does not exist")

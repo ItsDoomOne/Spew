@@ -1,17 +1,18 @@
 import platform, sys, shutil, base64, tarfile
 import requests
-import config as cfg
+import config
 from pathlib import Path
 from os import getenv
-
-system = platform.system()
+from config import flags, check_flags
+debug = True
 print_if_disabled = False
+system = platform.system()
 
-if cfg.debug or cfg.print_if_disabled: 
+if debug or print_if_disabled: 
     print_if_disabled = True
 
-def debugprint(text):
-    if cfg.debug:
+def debugprint(debug, text):
+    if debug:
         print(text)
 
 def disabledprint(text):

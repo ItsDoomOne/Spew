@@ -1,30 +1,25 @@
 import tomllib
 
+flags = {}
+validflags = ["disable_print","disable_shell","disable_mkdir","disable_file","disable_download","disable_unzip","disable_alias","disable_delete","print_if_command_disabled","prompt_user_for_big_downloads","big_download_size_mb","prompt_user_for_every_command","prompt_user_for_dangerous_commands","allowed_shell_commands","blacklisted_shell_commands","ignore_all_safety_measures_including_disabling_and_shell_command_blacklisting_very_dangerous","log_file_path","max_log_file_size_mb","allow_executing_of_different_os_commands","debug","unzip_backend_windows","unzip_backend_linux","unzip_backend_osx","shell_used_on_linux","shell_used_on_osx","shell_used_on_windows"]
 with open ("./config/config.toml", "rb") as conf:
     config = tomllib.load(conf)
+for key, value in config.items():
+    lower_key = key.lower()
+    if value == True:
+        value = 1
+    elif value == False:
+        value = 0
+    flags[lower_key] = value
 
-debug = config["DEBUG"]
-disable_shell = config["DISABLE_SHELL"]
-disable_print = config["DISABLE_PRINT"]
-disable_mkdir = config["DISABLE_MKDIR"]
-disable_file = config["DISABLE_FILE"]
-disable_download = config["DISABLE_DOWNLOAD"]
-disable_unzip  = config["DISABLE_UNZIP"]
-disable_alias = config["DISABLE_ALIAS"]
-disable_delete = config["DISABLE_DELETE"]
-print_if_disabled = config["PRINT_IF_COMMAND_DISABLED"]
-prompt_user_for_big_downloads = config["PROMPT_USER_FOR_BIG_DOWNLOADS"]
-big_download_size_mb = config["BIG_DOWNLOAD_SIZE_MB"]
-prompt_user_for_every_command = config["PROMPT_USER_FOR_EVERY_COMMAND"]
-prompt_user_for_dangerous_commands = config["PROMPT_USER_FOR_DANGEROUS_COMMANDS"]
-allowed_shell_commands = config["ALLOWED_SHELL_COMMANDS"]
-blacklisted_shell_commands = config["BLACKLISTED_SHELL_COMMANDS"]
-danger = config["IGNORE_ALL_SAFETY_MEASURES_INCLUDING_DISABLING_AND_SHELL_COMMAND_BLACKLISTING_VERY_DANGEROUS"]
-log_file_path = config["LOG_FILE_PATH"]
-max_log_file_size_mb = config["MAX_LOG_FILE_SIZE_MB"]
-allow_executing_of_different_os_commands = config["ALLOW_EXECUTING_OF_DIFFERENT_OS_COMMANDS"]
-unzip_backend_windows = config["UNZIP_BACKEND_WINDOWS"]
-unzip_backend_osx = config["UNZIP_BACKEND_OSX"]
-shell_used_on_linux = config["SHELL_USED_ON_LINUX"]
-shell_used_on_osx = config["SHELL_USED_ON_OSX"]
-shell_used_on_windows = config["SHELL_USED_ON_WINDOWS"]
+def check_flags(string):
+    for word in string.split():
+        w = word.lower()
+        if not word.lower().endswith(".spw") or word.lower().endswith(".spew"):
+            if not "=" in w:
+                return
+            if any(word.lower().startswith(prefix) for prefix in validflags):
+                parts = w.split("=", 1)
+                key = parts[0]
+                val = parts[1]
+                flags[key] = int(val)
