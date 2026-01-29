@@ -4,6 +4,7 @@ from execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzi
 from pathlib import Path
 
 validflags = ["disable_print","disable_shell","disable_mkdir","disable_file","disable_download","disable_unzip","disable_alias","disable_delete","print_if_command_disabled","prompt_user_for_big_downloads","big_download_size_mb","prompt_user_for_every_command","prompt_user_for_dangerous_commands","allowed_shell_commands","blacklisted_shell_commands","ignore_all_safety_measures_including_disabling_and_shell_command_blacklisting_very_dangerous","log_file_path","max_log_file_size_mb","allow_executing_of_different_os_commands","debug","unzip_backend_windows","unzip_backend_linux","unzip_backend_osx","shell_used_on_linux","shell_used_on_osx","shell_used_on_windows"]
+flagsvalue = {k: 0 for k in validflags}
 validcommands = {
     "spew": None,
     "print": printexec,
@@ -21,11 +22,19 @@ tempFile = (f"{tempPath}spewfile.spew")
 def check_flags(string):
     debugprint(f"DEBUG: CFString is {string}")
     for word in string.split():
+        w = word.lower()
         if not word.lower().endswith(".spw") or word.lower().endswith(".spew"):
-            if any(word.lower().startswith(prefix) for prefix in validflags):
-                debugprint(f"{word} was used and is a valid flag")
-            elif word.lower() == "debugmenu":
+            if not "=" in w:
+                debugprint(f"{w} doesnt have =")
+                return
+            elif w == "debugmenu":
                 debugmenu()
+            if any(word.lower().startswith(prefix) for prefix in validflags):
+                parts = w.split("=", 1)
+                key = parts[0]
+                val = parts[1]
+                flagsvalue[key] = int(val)
+                print(flagsvalue)
 
 
 def execute_file(filepath):
