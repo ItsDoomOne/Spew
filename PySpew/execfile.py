@@ -79,3 +79,38 @@ def delaliasexec(run):
     if run == "":
         return
     print("not implemented")
+
+
+validcommands = {
+    "spew": None,
+    "print": printexec,
+    "shell": shellexec,
+    "delete": removeexec,
+    "mkdir": mkdirexec,
+    "file": fileexec,
+    "unzip": unzipexec,
+    "alias": aliasexec,
+    "delalias": delaliasexec,
+}
+
+def execute_file(filepath):
+    try:
+        with open(filepath, "r") as file:
+            for line in file:
+                stripped = line.strip()
+                if not stripped:
+                    continue
+                currentCommand = ((stripped.split()[0]).lower())
+                if currentCommand in validcommands:
+                    remove = (len(currentCommand) + 1)
+                    content = stripped[remove:].strip()
+                    currentFunction = validcommands.get(currentCommand)
+                    if not currentFunction:
+                        continue
+                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
+                        currentFunction(content[1:-1])
+                    else:
+                        currentFunction(content)
+    except Exception as e:
+        print("Error parsing file:", e)
+        fancyexit()

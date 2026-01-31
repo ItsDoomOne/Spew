@@ -93,4 +93,15 @@ def execute_spewfile2(path):
         print(f"File {path} does not exist.")
     except tarfile.TarError as err:
         print(f"An error occured while trying to extract {path}: {err}")
+
+def is_spew_file(filepath):
+    try:
+        with open(filepath, "r") as file:
+            first_line = file.readline()
+            if first_line.split()[0].lower() == "spew" and (file.name.endswith(".spew") or file.name.endswith(".spw")):
+                return True
+            else:
+                return False
+    except (IndexError, FileNotFoundError):
+        return False
         

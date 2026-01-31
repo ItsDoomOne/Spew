@@ -1,20 +1,9 @@
 import sys, requests
-from utils import path_setup, fancyexit, help_prompt, debugprint, debugmenu
-from execfile import printexec, shellexec, mkdirexec, removeexec, fileexec, unzipexec, aliasexec, delaliasexec
+from utils import path_setup, fancyexit, help_prompt, debugprint, is_spew_file
 from pathlib import Path
 from config import flags, check_flags
+from execfile import execute_file
 
-validcommands = {
-    "spew": None,
-    "print": printexec,
-    "shell": shellexec,
-    "delete": removeexec,
-    "mkdir": mkdirexec,
-    "file": fileexec,
-    "unzip": unzipexec,
-    "alias": aliasexec,
-    "delalias": delaliasexec,
-}
 tempPath = path_setup()
 tempFile = (f"{tempPath}spewfile.spew")
 
@@ -28,40 +17,7 @@ try:
 except IndexError:
     help_prompt()
     fancyexit() 
-
-def execute_file(filepath):
-    try:
-        with open(filepath, "r") as file:
-            for line in file:
-                stripped = line.strip()
-                if not stripped:
-                    continue
-                currentCommand = ((stripped.split()[0]).lower())
-                if currentCommand in validcommands:
-                    remove = (len(currentCommand) + 1)
-                    content = stripped[remove:].strip()
-                    currentFunction = validcommands.get(currentCommand)
-                    if not currentFunction:
-                        continue
-                    if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        currentFunction(content[1:-1])
-                    else:
-                        currentFunction(content)
-    except Exception as e:
-        print("Error parsing file:", e)
-        fancyexit()
             
-def is_spew_file(filepath):
-    try:
-        with open(filepath, "r") as file:
-            first_line = file.readline()
-            if first_line.split()[0].lower() == "spew" and (file.name.endswith(".spew") or file.name.endswith(".spw")):
-                return True
-            else:
-                return False
-    except (IndexError, FileNotFoundError):
-        return False
-
 debugprint(debug, "DEBUG: Execution passed defs")
 
 try:           
