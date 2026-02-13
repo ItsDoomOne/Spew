@@ -1,4 +1,3 @@
-from config import flags
 from subprocess import run as runproc
 from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode, download_file
 from pathlib import Path
@@ -9,7 +8,7 @@ def shellexec(run):
     if not flags["disable_shell"]:
         runproc(run, shell=True)
     else:
-        disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}")
+        disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}", kaboom)
 
 def mkdirexec(run):
     if run == "":
@@ -17,7 +16,7 @@ def mkdirexec(run):
     if not flags["disable_mkdir"]:
         Path(run).mkdir()
     else:
-        disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}")
+        disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}", kaboom)
 
 def printexec(run):
     if run == "":
@@ -25,7 +24,7 @@ def printexec(run):
     if not flags["disable_print"]:
         print(run)
     else:
-        disabledprint(f"DEBUG: Print is disabled. Tried to print {run}")
+        disabledprint(f"DEBUG: Print is disabled. Tried to print {run}", kaboom)
 
 def removeexec(run):
     if run == "":
@@ -42,7 +41,7 @@ def removeexec(run):
             debugprint(f"DEBUG: Path {run} appears to be a folder")
             Path(run).rmdir() #currently only deletes empty directories. 
     else:
-        disabledprint(f"DEBUG: Delete is disabled. Tried to delete {run}")
+        disabledprint(f"DEBUG: Delete is disabled. Tried to delete {run}", kaboom)
 
 def fileexec(run):
     if run == "":
@@ -93,8 +92,14 @@ validcommands = {
     "delalias": delaliasexec,
 }
 
-def execute_file(filepath):
+def execute_file(filepath, flags1):
     try:
+        global flags
+        global kaboom 
+        flags = flags1
+        if flags["debug"] or flags["print_if_command_disabled"]:
+            kaboom = True
+        else: kaboom = False
         with open(filepath, "r") as file:
             for line in file:
                 stripped = line.strip()

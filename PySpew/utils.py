@@ -1,22 +1,15 @@
 import platform, sys, shutil, base64, tarfile
 import requests
-import config
 from pathlib import Path
 from os import getenv
-from config import flags, check_flags
-debug = True
-print_if_disabled = False
 system = platform.system()
 
-if debug or print_if_disabled: 
-    print_if_disabled = True
-
 def debugprint(debug, text):
-    if debug:
-        print(text)
+    if debug == 1: print(text)
+    else: return
 
-def disabledprint(text):
-    if print_if_disabled:
+def disabledprint(text, state=False):
+    if state:
         print(text)
 
 def path_setup():

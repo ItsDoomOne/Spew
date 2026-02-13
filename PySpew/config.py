@@ -16,9 +16,7 @@ def check_flags(string):
     for word in string.split():
         w = word.lower()
         if not word.lower().endswith(".spw") or word.lower().endswith(".spew"):
-            if not "=" in w:
-                return
-            if any(word.lower().startswith(prefix) for prefix in validflags):
+            if any(word.lower().startswith(prefix) for prefix in validflags) and "=" in w:
                 parts = w.split("=", 1)
                 key = parts[0]
                 val = parts[1]
