@@ -92,6 +92,19 @@ validcommands = {
     "delalias": delaliasexec,
 }
 
+def execute_spewfile2(path):
+    path_object = Path(path)
+    if not path_object.exists():
+        print(f"Tarfile {path} does not exist.")
+    try:
+        with tarfile.open(path, "r:zst") as tar:
+            tar.extractall(path=tempPath)
+        print(f"Tarfile {path} successfully extracted to {tempPath}")
+    except FileNotFoundError:
+        print(f"File {path} does not exist.")
+    except tarfile.TarError as err:
+        print(f"An error occured while trying to extract {path}: {err}")
+
 def execute_file(filepath, flags1):
     try:
         global flags
