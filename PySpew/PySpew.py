@@ -3,7 +3,6 @@ from utils import path_setup, fancyexit, help_prompt, debugprint, is_spew_file
 from pathlib import Path
 from config import flags, check_flags
 from execfile import execute_file
-# IMPORT OTHER FILES AND LIB
 
 try:
     tempFile = (f"{path_setup()}spewfile.spew")
@@ -39,8 +38,8 @@ try:
             debugprint(debug, f"Details: {e}")
     else:
         print(f"Error: {argument1} is invalid") 
-except IndexError:
-    raise IndexError
+except IndexError as e:
+    print(f"IndexError {e} occurred")
     fancyexit()
 except Exception as e:
     debugprint(debug, f"DEBUG: Execution halted: {e}")

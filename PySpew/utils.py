@@ -84,4 +84,5 @@ def is_spew_file(filepath):
                 return False
     except (IndexError, FileNotFoundError):
         return False
-        
+def nothing():
+    return
