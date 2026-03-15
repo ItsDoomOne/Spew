@@ -2,15 +2,21 @@ from subprocess import run as runproc
 from utils import debugprint, fancyexit, disabledprint, base64_decode, ascii85_decode, download_file
 from pathlib import Path
 
-def shellexec(run):
+def shellexec(run, flags):
     if run == "":
         return
+    allowed = flags["allowed_shell_commands"]
+    blacklisted = flags["blacklisted_shell_commands"]
+    if run.split()[0] not in allowed or run.split()[0] in blacklisted:
+        print(f"Command {run.split()[0]} disabled by config") 
+        return()
     if not flags["disable_shell"]:
+        print(f"A STRING É {run}")
         runproc(run, shell=True)
     else:
         disabledprint(f"DEBUG: Shell is disabled. Tried to run {run}", kaboom)
 
-def mkdirexec(run):
+def mkdirexec(run, flags):
     if run == "":
         return   
     if not flags["disable_mkdir"]:
@@ -18,7 +24,7 @@ def mkdirexec(run):
     else:
         disabledprint(f"DEBUG: Mkdir is disabled. Tried to create {run}", kaboom)
 
-def printexec(run):
+def printexec(run, flags):
     if run == "":
         return
     if not flags["disable_print"]:
@@ -26,7 +32,7 @@ def printexec(run):
     else:
         disabledprint(f"DEBUG: Print is disabled. Tried to print {run}", kaboom)
 
-def removeexec(run):
+def removeexec(run, flags):
     if run == "":
         return
     if not flags["disable_delete"]:
@@ -43,7 +49,7 @@ def removeexec(run):
     else:
         disabledprint(f"DEBUG: Delete is disabled. Tried to delete {run}", kaboom)
 
-def fileexec(run):
+def fileexec(run, flags):
     if run == "":
         return
     if not len(run.split()) == 3:
@@ -64,17 +70,17 @@ def fileexec(run):
         debugprint(f"File type {filetype} does not exist.")
     return    
 
-def unzipexec(run):
+def unzipexec(run, flags):
     if run == "":
         return
     print("not implemented")
 
-def aliasexec(run):
+def aliasexec(run, flags):
     if run == "":
         return
     print("not implemented")
 
-def delaliasexec(run):
+def delaliasexec(run, flags):
     if run == "":
         return
     print("not implemented")
@@ -100,11 +106,9 @@ def execute_spewfile2(path):
         with tarfile.open(path, "r:zst", filter='data') as tar:
             # tar.extractall(path=tempPath)
             # JAMAIS USAR EXTRACTALL, ABRE PORTA PARA ZIPBOMB.
-        print(f"Tarfile {path} successfully extracted to {tempPath}")
-    except FileNotFoundError:
-        print(f"File {path} does not exist.")
-    except tarfile.TarError as err:
-        print(f"An error occured while trying to extract {path}: {err}")
+            print(f"Tarfile {path} successfully extracted to {tempPath}")
+    except Exception as e:
+        print(e)
 
 def execute_file(filepath, flags1):
     try:
@@ -127,9 +131,9 @@ def execute_file(filepath, flags1):
                     if not currentFunction:
                         continue
                     if len(content) >= 2 and content[0] == content[-1] and content[0] in ("\"", "'"):
-                        currentFunction(content[1:-1])
+                        currentFunction(content[1:-1], flags)
                     else:
-                        currentFunction(content)
+                        currentFunction(content, flags)
     except Exception as e:
         print("Error parsing file:", e)
         fancyexit()

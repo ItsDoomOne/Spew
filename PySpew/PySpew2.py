@@ -5,6 +5,7 @@ from config import flags, check_flags
 from execfile import execute_file
 
 try:
+    global flags
     tempFile = (f"{path_setup()}spewfile.spew")
     argument1 = sys.argv[1]
     check_flags(" ".join(sys.argv[1:]))
@@ -34,7 +35,6 @@ try:
                     response = requests.get(argument)
                     file.write(response.content)
                     if not is_spew_file(tempFile): fancyexit(f"The URL {argument} is not a spewfile")
-                    execute_file(tempFile, flags)
                     fancyexit("cu")             
             except requests.exceptions.RequestException as e:
                 print("Error: either the protocol is incorrect or the URL is unreachable")

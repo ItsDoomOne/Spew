@@ -2,7 +2,7 @@
 # For more information on each setting, please refer to the PySpew documentation.
 
 DISABLE_PRINT = false # this is specially useful for bash scripts that use pyspew.
-DISABLE_SHELL = true # disabling shell is useful for security reasons, although we have PROMPT_USER_FOR_DANGEROUS_COMMANDS.
+DISABLE_SHELL = false # disabling shell is useful for security reasons, although we have PROMPT_USER_FOR_DANGEROUS_COMMANDS.
 DISABLE_MKDIR = false # i do not know why someone would like do disable this, but better safe than sorry, users are way better than me finding bugs.
 DISABLE_FILE = false # disables inline and b64 only, not downloads.
 DISABLE_DOWNLOAD = false # downloads are very useful, but its good to prompt the size before downloading files bigger than 100MB.
