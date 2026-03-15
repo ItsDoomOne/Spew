@@ -2,11 +2,12 @@
 Domain Specific Language for installing files and various interpreters \
 Currently WIP, and only PySpew is being actively developed
 
-## Project is currently 'dangerous'
-What I mean by that is that it does not have any security features to stop execution of dangerous code. \
-It's still being implemented, and down here you can find what was implemented and what is WIP.
+## Language/Interpreter are currently 'dangerous'
+What I mean is that PySpew, the current interpreter, does not have any good security features to stop execution of dangerous code. \
+It's still being implemented, and down here you can find what was implemented and what is WIP. \
+Shell execution is dangerous and even with commands blacklisting, it can still be used for bad stuff. Please review what code you are executing.
 
-## Implementation list
+## PySpew Implementation list
 
 Print ✅ \
 Shell ✅ \
@@ -28,3 +29,11 @@ Most of the time, those are commit messages and debugging texts. I'm extra caref
 ## To-Do
 
 1. Make a documentation file for the config file.
+
+
+## Brief planning
+
+I really, really want to ditch the python interpreter for CSpew, and thats for two good reasons:
+1. PySpew being an interpreter writing in a interpreted language
+2. I need to train my C skills for LerDOS. I can't just jump into a moving train without accelerating.
+Bonus reason: PySpew sucks
